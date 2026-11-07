@@ -1,0 +1,857 @@
+/* =====================================================
+   WARUNG VIRUS - style.css
+
+   Daftar isi:
+   1. Warna & dasar
+   2. Header & hero
+   3. Menu (filter & kartu)
+   4. Tombol
+   5. Bar keranjang
+   6. Lembar bawah (keranjang, form, pembayaran)
+   7. Struk & pesanan saya
+   8. Footer
+   9. Responsif & reduced motion
+   ===================================================== */
+
+
+/* ---------- 1. WARNA & DASAR ----------
+   Ganti warna di sini, semua bagian halaman ikut berubah */
+:root {
+    --utama: #1d4ed8;
+    --gelap: #0b2a8a;
+    --langit: #e6efff;
+    --latar: #f3f7ff;
+    --kartu: #ffffff;
+    --teks: #0c1a3d;
+    --redup: #5a6a8e;
+    --garis: #d6e2fb;
+    --aksen: #22d3ee;
+    --judul: "Bricolage Grotesque", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    padding-bottom: 110px;   /* ruang agar tidak tertutup bar keranjang */
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    color: var(--teks);
+    background: var(--latar);
+    line-height: 1.5;
+}
+
+h1, h2, h3 { font-family: var(--judul); margin: 0; }
+
+button { font: inherit; cursor: pointer; }
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--aksen);
+    outline-offset: 2px;
+}
+
+/* Pembatas lebar isi halaman */
+.wadah {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.redup { color: var(--redup); }
+
+
+/* ---------- 2. HEADER & HERO ---------- */
+
+.atas {
+    position: relative;
+    overflow: hidden;
+    background: var(--gelap);
+    color: #fff;
+    padding-bottom: 36px;
+}
+
+/* Virus besar berputar di pojok */
+.hiasan {
+    position: absolute;
+    right: -60px;
+    top: -40px;
+    width: 320px;
+    height: 320px;
+    color: var(--utama);
+    opacity: .55;
+    animation: putar 40s linear infinite;
+}
+
+@keyframes putar { to { transform: rotate(360deg); } }
+
+.atas-baris {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 16px;
+}
+
+.merek {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-family: var(--judul);
+    font-weight: 800;
+    font-size: 22px;
+}
+
+.merek svg {
+    width: 36px;
+    height: 36px;
+    color: var(--aksen);
+}
+
+.hero {
+    position: relative;
+    padding-top: 28px;
+    max-width: 520px;
+}
+
+.hero h1 {
+    font-size: clamp(34px, 7vw, 56px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -.02em;
+}
+
+.hero p {
+    margin: 12px 0 0;
+    color: #c9d9ff;
+    max-width: 40ch;
+}
+
+/* Tombol "Pesanan saya" */
+.tombol-riwayat {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 1.5px solid rgba(255, 255, 255, .4);
+    border-radius: 999px;
+    background: transparent;
+    color: #fff;
+    font-weight: 500;
+}
+
+.tombol-riwayat:hover { background: rgba(255, 255, 255, .12); }
+
+.lencana-kecil {
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: var(--aksen);
+    color: var(--gelap);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+}
+
+.lencana-kecil[hidden] { display: none; }
+
+
+/* ---------- 3. MENU ---------- */
+
+main.wadah { padding-top: 28px; }
+
+.judul-menu {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.judul-menu h2 {
+    font-size: 26px;
+    font-weight: 800;
+}
+
+/* Tombol filter */
+.filter { display: flex; gap: 8px; }
+
+.chip {
+    background: #fff;
+    color: var(--utama);
+    border: 1.5px solid var(--garis);
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-weight: 500;
+}
+
+.chip.aktif {
+    background: var(--utama);
+    border-color: var(--utama);
+    color: #fff;
+}
+
+/* Kisi kartu menu */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 16px;
+}
+
+.kartu-menu {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    background: var(--kartu);
+    border: 1.5px solid var(--garis);
+    border-radius: 16px;
+    padding: 12px;
+}
+
+/* Kotak gambar. Jika gambar gagal, JS menampilkan emoji di sini */
+.kartu-menu .foto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 180px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    background: var(--langit);
+    border-radius: 10px;
+    font-size: 56px;
+}
+
+.kartu-menu .foto img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.kartu-menu h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.harga {
+    margin: 2px 0 14px;
+    color: var(--utama);
+    font-weight: 700;
+}
+
+/* Tombol/stepper selalu menempel di bawah kartu */
+.aksi { margin-top: auto; }
+
+
+/* ---------- 4. TOMBOL ---------- */
+
+.tombol-utama {
+    padding: 12px 26px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--utama);
+    color: #fff;
+    font-weight: 700;
+}
+
+.tombol-utama:hover { background: var(--gelap); }
+
+.tombol-sekunder {
+    padding: 12px 18px;
+    border: 1.5px solid var(--utama);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--utama);
+    font-weight: 700;
+}
+
+.tombol-sekunder:hover { background: var(--langit); }
+
+.tombol-teks {
+    padding: 6px 0;
+    border: 0;
+    background: none;
+    color: var(--utama);
+    font-weight: 700;
+}
+
+/* Tombol "Tambah" di kartu menu */
+.tambah {
+    width: 100%;
+    padding: 9px 14px;
+    border: 1.5px solid var(--utama);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--utama);
+    font-weight: 700;
+}
+
+.tambah:hover { background: var(--langit); }
+
+/* Dua tombol sejajar (Lihat pesanan | Pesan lagi) */
+.dua-tombol {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.dua-tombol .tombol-utama,
+.dua-tombol .tombol-sekunder {
+    width: 100%;
+    padding: 12px 10px;
+}
+
+/* Tombol penuh lebar di dalam lembar */
+.lembar > .tombol-utama,
+.lembar form .tombol-utama,
+.qris .tombol-utama { width: 100%; }
+
+/* Stepper jumlah: [ − 2 + ] */
+.jumlah {
+    display: inline-flex;
+    align-items: center;
+    border: 1.5px solid var(--utama);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.jumlah button {
+    width: 36px;
+    height: 34px;
+    border: 0;
+    background: var(--langit);
+    color: var(--utama);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.jumlah button:hover { background: var(--garis); }
+
+.jumlah span {
+    min-width: 38px;
+    text-align: center;
+    font-weight: 700;
+}
+
+/* Versi di kartu menu: selebar kartu */
+.aksi .jumlah { display: flex; }
+.aksi .jumlah span { flex: 1; }
+.aksi .jumlah button { width: 44px; }
+
+
+/* ---------- 5. BAR KERANJANG ---------- */
+
+.bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    background: #fff;
+    border-top: 1.5px solid var(--garis);
+    box-shadow: 0 -6px 24px rgba(11, 42, 138, .12);
+    animation: naik .3s ease-out;
+}
+
+.bar[hidden] { display: none; }
+
+@keyframes naik { from { transform: translateY(100%); } }
+
+.bar-isi {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-top: 12px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+}
+
+.bar-keranjang {
+    position: relative;
+    width: 52px;
+    height: 52px;
+    border: 0;
+    border-radius: 14px;
+    background: var(--langit);
+    color: var(--utama);
+}
+
+.bar-keranjang svg { width: 28px; height: 28px; }
+
+/* Angka jumlah item di ikon keranjang */
+.lencana {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border: 2px solid #fff;
+    border-radius: 999px;
+    background: var(--utama);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 22px;
+    text-align: center;
+}
+
+.lencana.loncat { animation: loncat .35s ease-out; }
+
+@keyframes loncat { 40% { transform: scale(1.4); } }
+
+.bar-total {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.bar-total small { color: var(--redup); }
+
+.bar-total strong {
+    font-family: var(--judul);
+    font-size: 20px;
+}
+
+
+/* ---------- 6. LEMBAR BAWAH ---------- */
+
+/* Latar gelap di belakang lembar */
+.lapisan {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    background: rgba(8, 20, 60, .5);
+}
+
+.lembar {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    z-index: 40;
+    width: min(100%, 560px);
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 20px 20px calc(20px + env(safe-area-inset-bottom, 0px));
+    background: #fff;
+    border-radius: 22px 22px 0 0;
+    transform: translateX(-50%);
+    animation: naik-lembar .3s ease-out;
+}
+
+.lapisan[hidden],
+.lembar[hidden] { display: none; }
+
+@keyframes naik-lembar { from { transform: translate(-50%, 100%); } }
+
+.lembar-kepala {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.lembar-kepala h2 {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.tutup {
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--langit);
+    color: var(--utama);
+    font-size: 20px;
+}
+
+/* Daftar item (keranjang & struk) */
+.daftar {
+    list-style: none;
+    margin: 0 0 12px;
+    padding: 0;
+}
+
+.daftar li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--garis);
+}
+
+.daftar .ikon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    background: var(--langit);
+    overflow: hidden;
+    font-size: 28px;
+}
+
+.daftar .ikon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.daftar .info { flex: 1; min-width: 0; }
+.daftar .info strong { display: block; }
+
+.daftar .info small {
+    color: var(--utama);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.baris-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 16px 0;
+    font-size: 18px;
+}
+
+.baris-total strong {
+    font-family: var(--judul);
+    font-size: 24px;
+}
+
+/* Form data pemesan */
+.isian {
+    display: block;
+    margin-bottom: 14px;
+    font-weight: 500;
+}
+
+.isian input,
+.isian textarea {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
+    padding: 10px 12px;
+    font: inherit;
+    color: var(--teks);
+    background: var(--latar);
+    border: 1.5px solid var(--garis);
+    border-radius: 10px;
+}
+
+.isian textarea {
+    resize: vertical;
+    min-height: 70px;
+}
+
+/* Pilihan metode pembayaran (radio disembunyikan, kotaknya yang tampil) */
+.metode {
+    display: grid;
+    gap: 10px;
+    margin: 12px 0 4px;
+}
+
+.metode-opsi {
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+.metode-opsi input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+}
+
+.metode-isi {
+    display: flex;
+    flex-direction: column;
+    padding: 14px 16px;
+    background: #fff;
+    border: 1.5px solid var(--garis);
+    border-radius: 12px;
+}
+
+.metode-isi strong {
+    font-family: var(--judul);
+    font-size: 18px;
+}
+
+.metode-isi small { color: var(--redup); }
+
+.metode-opsi input:checked + .metode-isi {
+    background: var(--langit);
+    border-color: var(--utama);
+    box-shadow: 0 0 0 1.5px var(--utama);
+}
+
+.metode-opsi input:focus-visible + .metode-isi {
+    outline: 3px solid var(--aksen);
+    outline-offset: 2px;
+}
+
+/* Layar QRIS */
+.qris { text-align: center; }
+
+.qris-kotak {
+    display: inline-block;
+    margin: 12px 0 4px;
+    padding: 14px;
+    background: #fff;
+    border: 1.5px solid var(--garis);
+    border-radius: 16px;
+}
+
+.qris-kotak img,
+.qris-kotak canvas {
+    display: block;
+    max-width: 240px;
+    height: auto;
+}
+
+.qris-waktu {
+    margin: 0 0 14px;
+    color: var(--redup);
+}
+
+.qris-waktu strong {
+    color: var(--teks);
+    font-family: var(--judul);
+    font-size: 18px;
+}
+
+/* Kotak catatan "Nota akan diberikan..." */
+.nota {
+    margin: 12px 0;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: var(--langit);
+    color: var(--gelap);
+    font-weight: 500;
+}
+
+
+/* ---------- 7. STRUK & PESANAN SAYA ---------- */
+
+.sukses {
+    text-align: center;
+    padding: 8px 0 4px;
+}
+
+.sukses h2 {
+    margin-top: 4px;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+/* Kode pesanan, contoh VRS-4821 */
+.kode {
+    display: inline-block;
+    margin: 10px 0 4px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: var(--langit);
+    color: var(--utama);
+    font-family: var(--judul);
+    font-weight: 800;
+    letter-spacing: .04em;
+}
+
+.kode.besar {
+    padding: 8px 28px;
+    font-size: 32px;
+}
+
+.struk { text-align: left; margin: 16px 0 0; }
+
+.struk li {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--garis);
+}
+
+/* Tab: Menunggu bayar | Riwayat */
+.tab {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin: 8px 0 14px;
+    padding: 4px;
+    border-radius: 12px;
+    background: var(--langit);
+}
+
+.tab button {
+    padding: 9px 8px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--utama);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.tab button.aktif {
+    background: var(--utama);
+    color: #fff;
+}
+
+/* Ringkasan di atas daftar pesanan */
+.ringkas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 8px 0 14px;
+}
+
+.ringkas div {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--langit);
+}
+
+.ringkas small { color: var(--redup); }
+
+.ringkas strong {
+    font-family: var(--judul);
+    font-size: 20px;
+}
+
+/* Kartu satu pesanan */
+.pesanan {
+    margin-bottom: 12px;
+    padding: 14px;
+    border: 1.5px solid var(--garis);
+    border-radius: 14px;
+}
+
+.pesanan-atas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.pesanan-atas strong {
+    font-family: var(--judul);
+    font-size: 18px;
+}
+
+.pesanan .struk { margin: 8px 0 0; }
+
+.pesanan-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 10px;
+}
+
+.pesanan-total strong {
+    font-family: var(--judul);
+    font-size: 18px;
+}
+
+.pesanan .dua-tombol { margin-top: 12px; }
+
+/* Tombol "Batalkan" berwarna merah */
+.tombol-sekunder.bahaya {
+    border-color: #b91c1c;
+    color: #b91c1c;
+}
+
+.tombol-sekunder.bahaya:hover { background: #fee2e2; }
+
+/* Label status "Dibatalkan" */
+.status.batal {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Label status */
+.status {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.status.lunas {
+    background: var(--utama);
+    color: #fff;
+}
+
+.status.menunggu {
+    background: var(--langit);
+    color: var(--gelap);
+    border: 1.5px dashed var(--utama);
+}
+
+.kosong {
+    text-align: center;
+    padding: 24px 0;
+}
+
+
+/* ---------- 8. FOOTER ---------- */
+
+.bawah {
+    margin-top: 48px;
+    padding: 16px 0;
+    border-top: 1px solid var(--garis);
+    color: var(--redup);
+    font-size: 14px;
+}
+
+.bawah-isi {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 16px;
+}
+
+
+/* ---------- 9. RESPONSIF & REDUCED MOTION ---------- */
+
+/* Layar HP */
+@media (max-width: 520px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .kartu-menu .foto { height: 120px; }
+
+    .hiasan {
+        width: 220px;
+        height: 220px;
+        right: -70px;
+    }
+
+    .tombol-utama { padding: 12px 18px; }
+}
+
+/* Matikan animasi jika pengguna memintanya */
+@media (prefers-reduced-motion: reduce) {
+    .hiasan,
+    .bar,
+    .lembar,
+    .lencana.loncat { animation: none; }
+}

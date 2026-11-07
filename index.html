@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Warung Virus - Pesan Online</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Logo virus: digambar sekali, dipakai berulang lewat <use> -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <!-- Satu duri (garis + bulatan), nanti diputar 8 kali -->
+            <g id="duri" stroke-width="5" stroke-linecap="round">
+                <line x1="50" y1="28" x2="50" y2="13"/>
+                <circle cx="50" cy="9" r="5" stroke="none"/>
+            </g>
+        </defs>
+
+        <symbol id="virus" viewBox="0 0 100 100">
+            <g fill="currentColor" stroke="currentColor">
+                <circle cx="50" cy="50" r="24" stroke="none"/>
+                <use href="#duri"/>
+                <use href="#duri" transform="rotate(45 50 50)"/>
+                <use href="#duri" transform="rotate(90 50 50)"/>
+                <use href="#duri" transform="rotate(135 50 50)"/>
+                <use href="#duri" transform="rotate(180 50 50)"/>
+                <use href="#duri" transform="rotate(225 50 50)"/>
+                <use href="#duri" transform="rotate(270 50 50)"/>
+                <use href="#duri" transform="rotate(315 50 50)"/>
+            </g>
+            <!-- Kilau -->
+            <circle cx="42" cy="44" r="4" fill="#fff" opacity=".35"/>
+            <circle cx="56" cy="55" r="3" fill="#fff" opacity=".35"/>
+        </symbol>
+    </svg>
+
+
+    <!-- ========== HEADER ========== -->
+    <header class="atas">
+        <svg class="hiasan" viewBox="0 0 100 100" aria-hidden="true"><use href="#virus"/></svg>
+
+        <div class="wadah">
+            <div class="atas-baris">
+                <a href="#" class="merek">
+                    <svg viewBox="0 0 100 100" aria-hidden="true"><use href="#virus"/></svg>
+                    <span>Warung Virus</span>
+                </a>
+
+                <button type="button" class="tombol-riwayat" data-aksi="riwayat">
+                    Pesanan saya
+                    <span id="jumlah-riwayat" class="lencana-kecil" hidden>0</span>
+                </button>
+            </div>
+
+            <div class="hero">
+                <h1>Rasa yang menular.</h1>
+                <p>Pilih menu, tekan tambah, lalu checkout. Pesananmu langsung kami siapkan.</p>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ========== MENU ========== -->
+    <main class="wadah">
+        <div class="judul-menu">
+            <h2>Menu</h2>
+
+            <div class="filter" role="group" aria-label="Filter menu">
+                <button type="button" class="chip aktif" data-filter="semua">Semua</button>
+                <button type="button" class="chip" data-filter="makanan">Makanan</button>
+                <button type="button" class="chip" data-filter="minuman">Minuman</button>
+            </div>
+        </div>
+
+        <!-- Kartu menu diisi oleh script.js -->
+        <div id="daftar-menu" class="grid"></div>
+    </main>
+
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="bawah">
+        <div class="wadah bawah-isi">
+            <span>Mini Hackathon Teknologi Web · Kelompok Virus</span>
+        </div>
+    </footer>
+
+
+    <!-- ========== BAR KERANJANG (muncul jika ada item) ========== -->
+    <div id="bar" class="bar" hidden>
+        <div class="wadah bar-isi">
+            <button type="button" class="bar-keranjang" data-aksi="buka" aria-label="Lihat keranjang">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 4h2l2.4 11.2a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.8L20 8H6.2"
+                          fill="none" stroke="currentColor" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="9.5" cy="20" r="1.5" fill="currentColor"/>
+                    <circle cx="17" cy="20" r="1.5" fill="currentColor"/>
+                </svg>
+                <span id="lencana" class="lencana">0</span>
+            </button>
+
+            <div class="bar-total">
+                <small>Total</small>
+                <strong id="total-bar">Rp0</strong>
+            </div>
+
+            <button type="button" class="tombol-utama" data-aksi="checkout">Checkout</button>
+        </div>
+    </div>
+
+
+    <!-- ========== LEMBAR BAWAH (keranjang, form, pembayaran, dll) ========== -->
+    <div id="lapisan" class="lapisan" data-aksi="tutup" hidden></div>
+    <section id="lembar" class="lembar" role="dialog" aria-modal="true" aria-label="Keranjang" hidden></section>
+
+
+    <!-- Library pembuat QR code -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
