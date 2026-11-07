@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Warung Virus - Pesan Online</title>
+    <link rel="icon" href="data:,">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,8 +69,9 @@
 
     <!-- ========== MENU ========== -->
     <main class="wadah">
+      <section aria-labelledby="judul-menu">
         <div class="judul-menu">
-            <h2>Menu</h2>
+            <h2 id="judul-menu">Menu</h2>
 
             <div class="filter" role="group" aria-label="Filter menu">
                 <button type="button" class="chip aktif" data-filter="semua">Semua</button>
@@ -80,6 +82,7 @@
 
         <!-- Kartu menu diisi oleh script.js -->
         <div id="daftar-menu" class="grid"></div>
+      </section>
     </main>
 
 
@@ -117,7 +120,7 @@
 
     <!-- ========== LEMBAR BAWAH (keranjang, form, pembayaran, dll) ========== -->
     <div id="lapisan" class="lapisan" data-aksi="tutup" hidden></div>
-    <section id="lembar" class="lembar" role="dialog" aria-modal="true" aria-label="Keranjang" hidden></section>
+    <div id="lembar" class="lembar" role="dialog" aria-modal="true" aria-label="Pesanan Warung Virus" hidden></div>
 
 
     <!-- Library pembuat QR code -->

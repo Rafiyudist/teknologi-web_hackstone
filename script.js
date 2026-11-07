@@ -23,7 +23,7 @@ const menu = [
     { id: 2, nama: 'Mie goreng',  harga: 14000, jenis: 'makanan', ikon: '🍜', gambar: 'miegoreng.png' },
     { id: 3, nama: 'Ayam kremes', harga: 18000, jenis: 'makanan', ikon: '🍗', gambar: 'ayamkremes.png' },
     { id: 4, nama: 'Lemon tea',   harga: 6000,  jenis: 'minuman', ikon: '🍋', gambar: 'lemontea.png' },
-    { id: 5, nama: 'Es teh',      harga: 4000,  jenis: 'minuman', ikon: '🍹', gambar: 'esteh.png' },
+    { id: 5, nama: 'Es teh',      harga: 4000,  jenis: 'minuman', ikon: '🧋', gambar: 'esteh.png' },
     { id: 6, nama: 'Es jeruk',    harga: 6000,  jenis: 'minuman', ikon: '🍊', gambar: 'esjeruk.png' }
 ];
 
@@ -160,8 +160,7 @@ function stepper(id) {
 // Jika file tidak ditemukan, otomatis diganti emoji.
 function gambarMenu(m) {
     return `
-        <img src="gambar/${m.gambar}" alt="${m.nama}" loading="lazy"
-             onerror="this.style.display='none'; this.parentElement.textContent='${m.ikon}'">`;
+        <img src="gambar/${m.gambar}" alt="${m.nama}" loading="lazy" data-ikon="${m.ikon}">`;
 }
 
 // Menggambar semua kartu menu sesuai filter
@@ -716,6 +715,14 @@ document.addEventListener('click', (e) => {
     const jalankan = aksi[tombol.dataset.aksi];
     if (jalankan) jalankan(tombol);
 });
+
+// Gambar gagal dimuat -> ganti emoji.
+// Event "error" tidak naik ke atas (bubble), jadi dipasang dengan capture (true).
+document.addEventListener('error', (e) => {
+    const img = e.target;
+    if (img.tagName !== 'IMG' || !img.dataset.ikon) return;
+    img.parentElement.textContent = img.dataset.ikon;
+}, true);
 
 // Pilihan metode pembayaran
 document.addEventListener('change', (e) => {

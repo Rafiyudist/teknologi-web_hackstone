@@ -26,6 +26,9 @@
     --redup: #5a6a8e;
     --garis: #d6e2fb;
     --aksen: #22d3ee;
+    --bahaya: #b91c1c;
+    --bahaya-muda: #fee2e2;
+    --bahaya-gelap: #991b1b;
     --judul: "Bricolage Grotesque", system-ui, sans-serif;
 }
 
@@ -771,16 +774,16 @@ main.wadah { padding-top: 28px; }
 
 /* Tombol "Batalkan" berwarna merah */
 .tombol-sekunder.bahaya {
-    border-color: #b91c1c;
-    color: #b91c1c;
+    border-color: var(--bahaya);
+    color: var(--bahaya);
 }
 
-.tombol-sekunder.bahaya:hover { background: #fee2e2; }
+.tombol-sekunder.bahaya:hover { background: var(--bahaya-muda); }
 
 /* Label status "Dibatalkan" */
 .status.batal {
-    background: #fee2e2;
-    color: #991b1b;
+    background: var(--bahaya-muda);
+    color: var(--bahaya-gelap);
 }
 
 /* Label status */
@@ -829,6 +832,16 @@ main.wadah { padding-top: 28px; }
 
 
 /* ---------- 9. RESPONSIF & REDUCED MOTION ---------- */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+
+    .hiasan {
+        width: 260px;
+        height: 260px;
+    }
+}
 
 /* Layar HP */
 @media (max-width: 520px) {
